@@ -10,8 +10,6 @@ window = k # window size
 
 # State variables
 recent_outcomes = [] 
-head_count = 0
-tail_count = 0
 p_history = []
 
 #Simulation loop
