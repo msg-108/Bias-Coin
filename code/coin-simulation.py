@@ -1,5 +1,6 @@
 #import libraries
 import random
+import matplotlib.pyplot as plt
 
 # Parameters 
 N = int (input ("Total number of tosses: "))
@@ -19,10 +20,8 @@ for i in range(N):
 
     if random_number <= p:
         outcome = 1 # heads
-        head_count += 1
     else:
         outcome = 0 # tails
-        tail_count += 1
 
     recent_outcomes.append(outcome)
     
@@ -39,3 +38,10 @@ for i in range(N):
 
         p_history.append(p)
         recent_outcomes.clear()
+
+# Plotting
+plt.plot(p_history)
+plt.xlabel('Toss number')
+plt.ylabel('Estimated probability of heads')
+plt.title('Coin That Learns to Cheat')
+plt.show()
