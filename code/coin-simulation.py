@@ -4,6 +4,7 @@ import random
 # Parameters 
 N = int (input ("Total number of tosses: "))
 p = .5 # initial probability of heads
+p = min(max(p, 0), 1) # ensure p is between 0 and 1
 alpha = .05 #significance level
 k = 5 # update interval
 window = k # window size
