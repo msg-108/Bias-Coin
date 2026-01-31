@@ -1,6 +1,7 @@
 #import libraries
 import random
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Parameters 
 while True:
@@ -45,10 +46,15 @@ for i in range(total_tosses):
     prob_history.append(alpha / (alpha+ beta))
 
 # Plotting
-plt.plot(prob_history, label="Bayesian Estimate P(Heads)")
-plt.axhline(true_bias, linestyle="--", label="True Bias")
-plt.xlabel("Toss number")
-plt.ylabel("Estimated probability of heads")
+sns.set(style="whitegrid", palette="pastel", font_scale=1.2)
+toss_numbers = list(range(1, total_tosses + 1))
+
+plt.figure(figsize=(15, 8))
+sns.lineplot(x=toss_numbers, y=prob_history, label="Bayesian Estimate P(Heads)", color='blue', linewidth=2)
+plt.axhline(true_bias, color='red', linestyle="--", linewidth=2, label=f"True Bias = {true_bias}")
+
+plt.xlabel("Toss Number")
+plt.ylabel("Estimated Probability of Heads")
 plt.title("Bayesian Learning of Coin Bias (Beta–Bernoulli)")
 plt.legend()
 plt.show()
