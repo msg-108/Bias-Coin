@@ -3,7 +3,15 @@ import random
 import matplotlib.pyplot as plt
 
 # Parameters 
-N = int (input ("Total number of tosses: "))
+while True:
+    try:
+        N = int(input("Total number of tosses: "))
+        if N <= 0:
+            raise ValueError
+        break
+    except ValueError:
+        print("N must be a positive integer")
+
 p = .5 # initial probability of heads
 p = min(max(p, 0), 1) # ensure p is between 0 and 1
 alpha = .05 #significance level
