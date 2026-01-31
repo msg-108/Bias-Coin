@@ -12,9 +12,17 @@ while True:
     except ValueError:
         print("Total tosses must be a positive integer")
 
+while True:
+    try:
+        true_bias = float(input("True bias (0.0 - 1.0): "))
+        if true_bias < 0 or true_bias > 1:
+            raise ValueError
+        break
+    except ValueError:
+        print("True bias must be a number between 0.0 and 1.0")
+
 head_prob = .5 # initial probability of heads
 alpha = .05 #significance level
-epsilon = 0.01 # prevents probability = 0 or 1
 fraction = 0.05 
 interval = min(max(round(total_tosses * fraction), 1), 100) # update interval
 window = interval # window size
@@ -27,7 +35,7 @@ prob_history = []
 for i in range(total_tosses):
     random_number = random.random() # Generates a random float between 0.0 and 1.0
 
-    if random_number <= head_prob:
+    if random_number <= true_bias:
         outcome = 1 # heads
     else:
         outcome = 0 # tails
@@ -38,14 +46,8 @@ for i in range(total_tosses):
         head_count = recent_outcomes.count(1)
         tail_count = recent_outcomes.count(0)
         
-        if head_count > tail_count:
-            head_prob = head_prob + alpha
-        elif head_count < tail_count:
-            head_prob = head_prob - alpha
-        else:
-            pass
-
-        head_prob = min(max(head_prob, epsilon), 1 - epsilon) #prevents absorbing state
+        avg_heads = head_count / window
+        head_prob += alpha * (avg_heads - head_prob)
 
         prob_history.append(head_prob)
         recent_outcomes.clear()
