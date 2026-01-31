@@ -45,7 +45,7 @@ for i in range(total_tosses):
         else:
             pass
 
-        head_prob = min(max(head_prob, epsilon), 1 - epsilon)
+        head_prob = min(max(head_prob, epsilon), 1 - epsilon) #prevents absorbing state
 
         prob_history.append(head_prob)
         recent_outcomes.clear()
